@@ -10,53 +10,48 @@ import java.util.concurrent.TimeUnit
  */
 
 object RXJavaTasks {
-
-
+    val alphabetList = listOf("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
     /**
      * Complete below function
      * let it emit characters form A to Z each 1 second
      */
     fun task1(): Observable<String> {
-        return Observable.
-    }
-
+        return Observable.fromIterable(alphabetList)
+            .zipWith(Observable.interval(1, TimeUnit.SECONDS), { item,_ -> item })
+    }//Done 95%
     /**
      * Complete below function
      * add only one operator only to allow emit items without duplication
      */
     fun task2(): Observable<String> {
         val mList = listOf("A", "B", "C", "C", "D", "B", "E")
-        return Observable.fromIterable(mList)
-            .zipWith(Observable.interval(300, TimeUnit.MILLISECONDS), {item, _ -> item})
-    }
-
+        return Observable.fromIterable(mList).distinct()
+            .zipWith(Observable.interval(300, TimeUnit.MILLISECONDS), { item, _ -> item })
+    }//Done
     /**
      * fix the error in mergeWith without replace the operator
      * don't alter or edit the first two lines inside the function
      */
     fun task3(): Observable<String> {
         val firstObservable = Observable.just("A", "B", "C", "D", "E")
-        val secondObservable = Observable.range(1,5)
-        return firstObservable.mergeWith(secondObservable)
-            .zipWith(Observable.interval(300, TimeUnit.MILLISECONDS), {item, _ -> item})
-    }
-
+        val secondObservable = Observable.range(1, 5)
+        return secondObservable.map { it.toString() }.mergeWith(firstObservable)
+            .zipWith(Observable.interval(1, TimeUnit.SECONDS)) { item, _ -> item }
+    }//Done
     /**
      * add the required operators to emit data from 21 to 80 only
      */
     fun task4(): Observable<Int> {
-        return Observable.range(1,100)
+        return Observable.range(1,100).skip(20).skipLast(20)
             .zipWith(Observable.interval(300, TimeUnit.MILLISECONDS), {item, _ -> item})
     }
-
     /**
      * let your observable emit these items: A1, B2, C3, D4, E5
      */
     fun task5(): Observable<String> {
         val firstObservable = Observable.just("A", "B", "C", "D", "E").zipWith(Observable.interval(300, TimeUnit.MILLISECONDS), {item, _ -> item})
         val secondObservable = Observable.range(1,5).zipWith(Observable.interval(300, TimeUnit.MILLISECONDS), {item, _ -> item})
-
-        return Observable.
-    }
+        return Observable.zip(firstObservable,secondObservable,{First,Second -> First+Second.toString()})
+    }//Done
 
 }
