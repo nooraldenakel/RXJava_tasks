@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
  */
 
 object RXJavaTasks {
-    val alphabetList = listOf("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
+    private val alphabetList = listOf("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
     /**
      * Complete below function
      * let it emit characters form A to Z each 1 second
