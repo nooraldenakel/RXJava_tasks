@@ -2,23 +2,26 @@ package com.ibareq.rxjavatasks
 
 import io.reactivex.rxjava3.core.Observable
 import java.util.concurrent.TimeUnit
-
 /**
  * Don't update function name or return type
  * Don't Edit any delete anything from code
  * Only add required things
  */
-
 object RXJavaTasks {
-    private val alphabetList = listOf("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
     /**
      * Complete below function
      * let it emit characters form A to Z each 1 second
      */
     fun task1(): Observable<String> {
-        return Observable.fromIterable(alphabetList)
+        val list = arrayListOf<Char>()
+        var alphabetList = 'A'
+        while (alphabetList <= 'Z'){
+            list.add(alphabetList)
+            alphabetList++
+        }
+        return Observable.fromIterable(list).map { it.toString() }
             .zipWith(Observable.interval(1, TimeUnit.SECONDS), { item,_ -> item })
-    }//Done 95%
+    }//Done
     /**
      * Complete below function
      * add only one operator only to allow emit items without duplication
